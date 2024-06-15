@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
+  const [doneItem, setDoneItem] = useState(false);
 
   return (
     <div className="firstdiv">
@@ -22,10 +23,16 @@ export const TodoList = () => {
         />
 
         {todos.map((t, index) => (
-          <li key={index}>
+          <li
+            key={index}
+            className={`d-flex justify-content-between ${
+              doneItem == true ? "text-decoration-line-through" : ""
+            }`}
+            onClick={() => setDoneItem(!doneItem)}
+          >
             {t}{" "}
             <i
-              className="fa-solid fa-trash-can"
+              className="fas fa-trash-alt"
               onClick={() =>
                 setTodos(
                   todos.filter(
