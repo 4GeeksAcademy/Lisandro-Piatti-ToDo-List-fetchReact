@@ -22,31 +22,38 @@ export const TodoList = () => {
           placeholder="What do you need to do?"
         />
 
-        {todos.map((t, index) => (
-          <li
-            key={index}
-            className={"d-flex justify-content-between"}
-          >
-            <p
-              className={doneItem == true ? "text-decoration-line-through" : ""}
-              onClick={() => setDoneItem(!doneItem)}
+        {todos.length === 0 ? (
+          <li>no hay tareas agregar una tarea</li>
+        ) : (
+          todos.map((t, index) => (
+            <li
+              key={index}
+              className={"d-flex justify-content-between"}
             >
-              {t}{" "}
-            </p>
+              <p
+                className={
+                  doneItem == true ? "text-decoration-line-through" : ""
+                }
+                onClick={() => setDoneItem(!doneItem)}
+              >
+                {t}{" "}
+              </p>
 
-            <i
-              className="fas fa-trash-alt"
-              onClick={() =>
-                setTodos(
-                  todos.filter(
-                    (itemValue, currentIndex) => index != currentIndex
+              <i
+                className="fas fa-trash-alt "
+                onClick={() =>
+                  setTodos(
+                    todos.filter(
+                      (itemValue, currentIndex) => index != currentIndex
+                    )
                   )
-                )
-              }
-            ></i>
-          </li>
-        ))}
+                }
+              ></i>
+            </li>
+          ))
+        )}
       </ul>
+
       <div>{todos.length} tasks</div>
     </div>
   );

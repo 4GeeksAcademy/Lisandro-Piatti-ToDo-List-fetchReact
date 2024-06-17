@@ -48,3 +48,11 @@ ul li:hover {
 input {
   width: 100%;
 }
+
+i {
+  visibility: hidden;
+}
+
+ul li:hover > i {
+  visibility: visible;
+}
