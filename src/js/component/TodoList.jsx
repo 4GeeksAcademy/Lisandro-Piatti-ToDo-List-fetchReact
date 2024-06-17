@@ -8,7 +8,7 @@ export const TodoList = () => {
   return (
     <div className="firstdiv">
       <h1>My ToDo List </h1>
-      <ul>
+      <ul className="mx-auto">
         <input
           type="text"
           onChange={(e) => setInputValue(e.target.value)}
@@ -23,21 +23,14 @@ export const TodoList = () => {
         />
 
         {todos.length === 0 ? (
-          <li>no hay tareas agregar una tarea</li>
+          <li>there's not tasks, add any</li>
         ) : (
           todos.map((t, index) => (
             <li
               key={index}
-              className={"d-flex justify-content-between"}
+              className={"d-flex justify-content-between align-items-center"}
             >
-              <p
-                className={
-                  doneItem == true ? "text-decoration-line-through" : ""
-                }
-                onClick={() => setDoneItem(!doneItem)}
-              >
-                {t}{" "}
-              </p>
+              <p className="item-text-task">{t} </p>
 
               <i
                 className="fas fa-trash-alt "
@@ -54,7 +47,9 @@ export const TodoList = () => {
         )}
       </ul>
 
-      <div>{todos.length} tasks</div>
+      <div className="counter-tasks">
+        <p className="text-taskts-counter">{todos.length} tasks</p>
+      </div>
     </div>
   );
 };
