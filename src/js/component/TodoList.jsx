@@ -25,12 +25,15 @@ export const TodoList = () => {
         {todos.map((t, index) => (
           <li
             key={index}
-            className={`d-flex justify-content-between ${
-              doneItem == true ? "text-decoration-line-through" : ""
-            }`}
-            onClick={() => setDoneItem(!doneItem)}
+            className={"d-flex justify-content-between"}
           >
-            {t}{" "}
+            <p
+              className={doneItem == true ? "text-decoration-line-through" : ""}
+              onClick={() => setDoneItem(!doneItem)}
+            >
+              {t}{" "}
+            </p>
+
             <i
               className="fas fa-trash-alt"
               onClick={() =>
