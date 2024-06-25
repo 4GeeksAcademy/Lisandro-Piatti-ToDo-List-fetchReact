@@ -7,7 +7,7 @@ export const TodoList = () => {
   const apiUrl = "https://playground.4geeks.com/todo";
 
   useEffect(() => {
-    updateTodosList();
+    getTodosList();
   }, []);
 
   // crear un usuario
@@ -26,34 +26,32 @@ export const TodoList = () => {
           }),
         }
       );
-      console.log(`a new user was created, info: ${responseUser}`);
+
       const dataUser = responseUser.json();
-      console.log(dataUser);
     } catch (error) {
-      console.log(`error is: ${error}`);
+      console.error(`error is: ${error}`);
     }
   };
 
   // actualizar lista
-  const updateTodosList = async () => {
+  const getTodosList = async () => {
     try {
       const response = await fetch(
         "https://playground.4geeks.com/todo/users/lisandropiatti"
       );
-      console.log(response);
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data.todos);
+
         setTodos(data.todos);
       } else if (response.status === 404) {
-        createUser();
-        updateTodosList();
+        await createUser();
+        await getTodosList();
       } else {
         throw "Api not working";
       }
     } catch (error) {
-      console.log(`This error: ${error}`);
+      console.error(`This error: ${error}`);
     }
   };
 
@@ -73,26 +71,24 @@ export const TodoList = () => {
           }),
         }
       );
-      console.log(`Item response data add: ${responseAddItem}`);
-      const dataAdd = await responseAddItem.json();
-      console.log(`Item data add: ${dataAdd.label}`);
-      updateTodosList();
-      setInputValue("");
+      if (responseAddItem.ok) {
+        getTodosList();
+        setInputValue("");
+      }
     } catch (error) {}
   };
 
   // Eliminar un item de la lista
   const deleteItemSelected = async (Id) => {
-    console.log(Id);
     const deleteTask = await fetch(
       `https://playground.4geeks.com/todo/todos/${Id}`,
       {
         method: "DELETE",
       }
     );
-    console.log(deleteTask);
+
     if (deleteTask.ok) {
-      updateTodosList();
+      getTodosList();
     }
   };
 
@@ -104,13 +100,13 @@ export const TodoList = () => {
           method: "DELETE",
         }
       );
-      console.log(resetTask);
+
       if (resetTask.ok) {
-        createUser();
-        updateTodosList();
+        await createUser();
+        await getTodosList();
       }
     } catch (error) {
-      console.log(`Error type: ${error}`);
+      console.error(`Error type: ${error}`);
     }
   };
 
